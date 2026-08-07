@@ -18,6 +18,9 @@ from openbench.agents import AgentManager
 
 # Ensure pass_hat reducer is registered when CLI is used
 from openbench.metrics import pass_hat as _register_pass_hat  # noqa: F401
+
+# Register openbench tokens/sec hook with Inspect AI hooks registry
+import openbench.hooks.throughput as _register_throughput_hook  # noqa: F401
 from openbench.utils.livemcpbench_cache import (
     prepare_livemcpbench_cache,
     clear_livemcpbench_root,

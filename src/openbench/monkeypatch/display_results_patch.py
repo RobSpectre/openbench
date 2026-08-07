@@ -154,6 +154,28 @@ def patch_display_results():
                 style=theme.light,
             )
 
+            # Add tokens/sec throughput metrics (from the openbench hooks tracker)
+            try:
+                from openbench.metrics.throughput import format_tps, get_tracker
+
+                tracker = get_tracker()
+                avg_tps = tracker.average_tps()
+                inst_tps = tracker.instantaneous_tps()
+                if avg_tps > 0:
+                    table.add_row(
+                        Text("tokens/sec (average):", style="bold"),
+                        f"  {format_tps(avg_tps)}",
+                        style=theme.light,
+                    )
+                    table.add_row(
+                        Text("tokens/sec (current):", style="bold"),
+                        f"  {format_tps(inst_tps)}",
+                        style=theme.light,
+                    )
+            except Exception:
+                # Throughput tracking is best-effort; never break the results panel.
+                pass
+
             panel.add_row(table)
             return panel
 

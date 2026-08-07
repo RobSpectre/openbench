@@ -14,7 +14,6 @@ from inspect_ai.scorer._reducer.reducer import (
     _compute_list_stat,
     _compute_scalar_stat,
 )
-from inspect_ai.scorer._reducer.registry import REDUCER_NAME
 
 
 @score_reducer(name="pass_hat")
@@ -49,5 +48,4 @@ def pass_hat(
         else:
             return _compute_scalar_stat(scores, value_to_float_fn, pass_hat_stat)
 
-    setattr(pass_hat, REDUCER_NAME, f"pass_hat_{k}")
     return reduce

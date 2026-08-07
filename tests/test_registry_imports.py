@@ -22,7 +22,10 @@ def test_imports_for_optional_dependencies():
         # Create temp venv and install package with only base dependencies
         steps = [
             (["uv", "venv", venv_path], "create venv"),
-            (["uv", "pip", "install", "-e", ".", "--python", python_exe], "install openbench with base deps"),
+            (
+                ["uv", "pip", "install", "-e", ".", "--python", python_exe],
+                "install openbench with base deps",
+            ),
         ]
 
         for cmd, desc in steps:
@@ -33,7 +36,8 @@ def test_imports_for_optional_dependencies():
         # Test the import in the venv
         result = subprocess.run(
             [python_exe, "-c", "import openbench._registry"],
-            capture_output=True, text=True
+            capture_output=True,
+            text=True,
         )
 
         if result.returncode != 0:
